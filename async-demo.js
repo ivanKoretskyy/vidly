@@ -1,5 +1,13 @@
 console.log('before');
-getUser(1, displayUser)
+// getUser(1, displayUser) // callback approac
+
+//rpomise approach
+
+getUser(1)
+  .then((user) => getRepo(user.username))
+  .then((repos) => getCommits(repos[0]))
+  .then((commints) => console.log(commits))
+  .catch((error) => console.log(error))
 
 console.log('after');
 
