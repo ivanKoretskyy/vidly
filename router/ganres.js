@@ -1,65 +1,63 @@
 const express = require('express');
-const Joi = require('joi');
 const router = express.Router();
+const { GanreModel, validateGanre } = require('./../models/ganre');
 
-let genres = [
-  {id: '1', name: 'comedy'},
-  {id: '2', name: 'drama'}
-];
+router.get('/', async (req, res) => {
+  try {
+    const ganres = await GanreModel.find({});
+    res.send(ganres)
+  }
+  catch(err) {
+    res.send(error)
+  }
 
-router.get('/', (req, res) => {
-  res.send(genres);
 });
 
-router.get('/:id', (req, res) => {
-  const ganre = genres.find((el) => el.id === req.params.id);
+router.get('/:id', async (req, res) => {
+  try {
+    const ganre = await GanreModel.findById(req.params.id);
+    res.send(ganre)
+  }
+  catch(err) {
+    res.status(404).send('not found')
+  }
 
-  if (!ganre) return res.status(404).send('not found');
-  
-  res.send(ganre);
 })
 
-router.post('/', (req,res) => {
-
+router.post('/', async (req,res) => {
   const result = validateGanre(req.body)
   if(result.error) return res.status(400).send(result.error.details[0].message);
-
-  const genre = {id: (genres.length +1).toString(), name: req.body.name};
-  genres = [...genres, genre]
-  res.send(genre);
-
+  try {
+    const ganre = await GanreModel.create({name: req.body.name}); 
+    res.send(ganre)
+  }
+  catch (err) {
+    res.send(err)
+  }
+    
 })
 
-
-router.put('/:id', (req, res) => {
-  let ganre = genres.find((el) => el.id === req.params.id);
+router.put('/:id', async (req, res) => {
+  console.log('id: ',req.params.id);
+  const ganre = await GanreModel.findById(req.params.id);
   if (!ganre) return res.status(404).send('not found');
 
   const {error} = validateGanre(req.body)
   if(error) return res.status(400).send(error.details[0].message);
 
   ganre.name = req.body.name;
-  genres.map((el) => el.id === req.params.id ? {...el, name: req.body.name } : el );
+  const save = ganre.save();
   res.send(ganre);
 })
 
-
-router.delete('/:id', (req, res)=> {
-  let ganre = genres.find((el) => el.id === req.params.id);
-  if (!ganre) return res.status(404).send('not found');
-
-  const index = genres.indexOf(ganre);
-  genres.splice(index, 1);
-
-  res.send(ganre);
-
-})
-
-function validateGanre(ganre) {
-  const schema = {
-    name: Joi.string().min(3).required()
+router.delete('/:id', async (req, res)=> {
+  try {
+   const ganre = await GanreModel.findByIdAndRemove(id);
+   res.send(ganre)
   }
-  return Joi.validate(ganre, schema);
-}
+  catch(err) {
+    res.status(404).send('not found')
+  }
+})
 
 module.exports = router;
