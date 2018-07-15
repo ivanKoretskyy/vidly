@@ -18,3 +18,4 @@ function validateGanre(ganre) {
   
   exports.validateGanre = validateGanre;
   exports.GanreModel = GanreModel;
+  exports.ganresSchema =ganresSchema;

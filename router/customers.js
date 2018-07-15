@@ -3,7 +3,6 @@ const { CustomerModel, validateCustomer } = require('./../models/customers');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  debugger;
   try {
     const customers = await CustomerModel.find({});
     res.send(customers)
