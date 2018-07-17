@@ -8,6 +8,9 @@ const userRouter = require('./router/users');
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const config = require('config');
+const error = require('./middleware/error');
+const winston = require('winston');
+require('express-async-errors');
 Joi.objectId = require('joi-objectid')(Joi);
 
 
@@ -17,6 +20,9 @@ if( !config.get('jwtPrivateKey')) {
   process.exit(1);
 }
 
+winston.add(new winston.transports.File({
+  filename: 'logger.log'
+}));
 
 
 mongoose.connect("mongodb://localhost:27017/vidly")
@@ -32,8 +38,9 @@ app.use('/api/movies', moviesRouter);
 app.use('/api/rentals', rentalsRouter);
 app.use('/api/users', userRouter);
 
+app.use(error)
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3300;
 app.listen(port, "localhost", () => {
     console.log('listen on port '+ port);
 })

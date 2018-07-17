@@ -4,15 +4,13 @@ const { GanreModel, validateGanre } = require('./../models/ganre');
 
 const auth = require('./../middleware/auth');
 const admin = require('./../middleware/admin');
+const winston = require('winston');
 
-router.get('/', async (req, res) => {
-  try {
+router.get('/', async (req, res, next) => {
+
     const ganres = await GanreModel.find({});
-    res.send(ganres)
-  }
-  catch(err) {
-    res.send(error)
-  }
+    //res.send(ganres)
+    throw new Error('cant connect to mongod');
 
 });
 
@@ -57,12 +55,11 @@ router.put('/:id', auth, async (req, res) => {
 
 router.delete('/:id', [auth, admin], async (req, res)=> {
   try {
-    debugger;
+    winston.log('warn', 'attemp to delete ganre')
    const ganre = await GanreModel.findByIdAndRemove(req.params.id);
    res.send(ganre)
   }
   catch(err) {
-    debugger;
     res.status(404).send('not found')
   }
 })
