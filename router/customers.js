@@ -1,6 +1,7 @@
 const express = require('express');
 const { CustomerModel, validateCustomer } = require('./../models/customers');
 const router = express.Router();
+const auth = require('./../middleware/auth');
 
 router.get('/', async (req, res) => {
   try {
@@ -24,7 +25,7 @@ router.get('/:id', async (req, res) => {
 
 })
 
-router.post('/', async (req,res) => {
+router.post('/', auth, async (req,res) => {
   const result = validateCustomer(req.body)
   if(result.error) return res.status(400).send(result.error.details[0].message);
   try {
@@ -37,7 +38,7 @@ router.post('/', async (req,res) => {
     
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id',auth, async (req, res) => {
   console.log('id: ',req.params.id);
   const {error} = validateCustomer(req.body)
   if(error) return res.status(400).send(error.details[0].message);
@@ -53,7 +54,7 @@ router.put('/:id', async (req, res) => {
   res.send(customer);
 })
 
-router.delete('/:id', async (req, res)=> {
+router.delete('/:id', auth, async (req, res)=> {
   try {
    const customer = await CustomerModel.findByIdAndRemove(req.params.id);
    res.send(customer)

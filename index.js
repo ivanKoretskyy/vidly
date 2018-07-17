@@ -26,11 +26,6 @@ const app = express();
 app.use(express.json());
 
 app.use(express.static('public')); // serve static files
-
-
-
-
-
 app.use('/api/ganres',ganresRouter);
 app.use('/api/customers',customersRouter);
 app.use('/api/movies', moviesRouter);

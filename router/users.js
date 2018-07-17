@@ -4,13 +4,15 @@ const bcrypt = require('bcrypt');
 
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const config = require('config');
-
-
+const auth = require('./../middleware/auth');
 
 router.get('/', async (req,res) => {
   const users = await userModel.find()
+  res.send(users);
+});
+
+router.get('/me', auth, async (req,res) => {
+  const users = await userModel.findById(req.user._id).select('-password');
   res.send(users);
 });
 
@@ -23,8 +25,8 @@ router.post('/', async (req, res) => {
   password = await bcrypt.hash(req.body.password, salt);
   user.password = password;
   user =  await user.save();
-
-  res.send(user);
+  const token = user.generateAuthToken();
+  res.header('x-auth-token', token).send(user);
 
 })
 
@@ -35,8 +37,7 @@ router.post('/login', async (req, res) => {debugger;
   const validPassword  = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send('ivalid email or password')
   
-  const token = jwt.sign({_id: user._id}, config.get('jwtPrivateKey'));
-
+  const token = user.generateAuthToken();
   res.send(token);
 })
 

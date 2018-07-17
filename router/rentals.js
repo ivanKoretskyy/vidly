@@ -4,6 +4,7 @@ const { CustomerModel } = require('./../models/customers');
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
+const auth = require('./../middleware/auth');
 //console.log('in rental')
 router.get('/', async (req, res) => {
     console.log('get all rentals')
@@ -18,7 +19,7 @@ router.get('/:id', async (req, res) => {
     res.send(rental);
 });
 
-router.post('/', async function (req,res) {
+router.post('/', auth, async function (req,res) {
     const result = validateRental(req.body);
     if (result.error) return res.status(400).send(result.error.details[0].message);
 
@@ -49,7 +50,7 @@ router.post('/', async function (req,res) {
     res.send(rental);
 });
 
-router.put('/:id', async function (req,res) {
+router.put('/:id', auth, async function (req,res) {
 
     const result = validateRental(req.body);
     if (result.error) return res.status(400).send(result.error.details[0].message);
