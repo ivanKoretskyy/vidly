@@ -1,4 +1,5 @@
 const express = require('express');
+require('express-async-errors');
 const logger  = require('./middleware/logger');
 const ganresRouter = require('./router/ganres');
 const customersRouter = require('./router/customers');
@@ -10,9 +11,17 @@ const Joi = require('joi');
 const config = require('config');
 const error = require('./middleware/error');
 const winston = require('winston');
-require('express-async-errors');
+require('winston-mongodb');
+
 Joi.objectId = require('joi-objectid')(Joi);
 
+process.on('uncaughtException', (ex) => {
+  winston.error(ex.message, ex);
+});
+
+process.on('unhandledRejection', (ex) => {
+  winston.error(ex.message, ex);
+})
 
 //make sure we have config from environment variables if no - exit
 if( !config.get('jwtPrivateKey')) {
@@ -23,7 +32,7 @@ if( !config.get('jwtPrivateKey')) {
 winston.add(new winston.transports.File({
   filename: 'logger.log'
 }));
-
+ winston.add(new winston.transports.MongoDB( {db: "mongodb://localhost:27017/vidly"}));
 
 mongoose.connect("mongodb://localhost:27017/vidly")
   .then(_ => console.log('connect to mongo success '))
@@ -40,7 +49,7 @@ app.use('/api/users', userRouter);
 
 app.use(error)
 
-const port = process.env.PORT || 3300;
+const port = process.env.PORT || 3000;
 app.listen(port, "localhost", () => {
     console.log('listen on port '+ port);
 })

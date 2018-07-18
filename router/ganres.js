@@ -6,7 +6,7 @@ const auth = require('./../middleware/auth');
 const admin = require('./../middleware/admin');
 const winston = require('winston');
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
 
     const ganres = await GanreModel.find({});
     //res.send(ganres)
@@ -55,7 +55,7 @@ router.put('/:id', auth, async (req, res) => {
 
 router.delete('/:id', [auth, admin], async (req, res)=> {
   try {
-    winston.log('warn', 'attemp to delete ganre')
+    winston.log('info', 'attemp to delete ganre')
    const ganre = await GanreModel.findByIdAndRemove(req.params.id);
    res.send(ganre)
   }
