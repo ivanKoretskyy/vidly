@@ -9,6 +9,5 @@ require('./startup/validation')();
 require('./startup/prod')(app);
 
 const port = process.env.PORT || 3000;
-app.listen(port, "localhost", () => {
-    console.log('listen on port '+ port);
-})
+console.log('listen on port ' + port)
+app.listen(port);
