@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set vidly_jwtKey=secret&& set NODE_ENV=production&& set app_password=1234&&&& node index.js",
+    "start2": "set vidly_jwtKey=secret&& set NODE_ENV=production&& set app_password=1234&&&& node index.js",
     "debug": "set DEBUG=app:db&&set app_password=1234&& set PORT=5000 && npm run set_dev && nodemon index.js",
     "set_dev": "set NODE_ENV=development",
     "set_password": "set app_password=1234",
