@@ -1,10 +1,7 @@
-{"level":"warn","message":"attemp to delete ganre"}
-{"message":"try winston","level":"warn"}
-{"message":"try winston","level":"warn"}
-{"message":"try winston","level":"warn"}
-{"level":"error","message":"cant connect to mongod"}
-{"level":"error","message":"cant connect to mongod"}
-{"level":"error","message":"cant connect to mongod"}
-{"code":"EADDRINUSE","errno":"EADDRINUSE","syscall":"listen","address":"127.0.0.1","port":3000,"level":"error","message":"listen EADDRINUSE 127.0.0.1:3000"}
-{"level":"error","message":"cant connect to mongod"}
-{"level":"error","message":"Fatal error: jwtPrivateKey not defined"}
+
+{"name":"MongoError","message":"Authentication failed.","ok":0,"errmsg":"Authentication failed.","code":18,"codeName":"AuthenticationFailed","level":"error"}
+{"name":"MongoError","message":"Authentication failed.","ok":0,"errmsg":"Authentication failed.","code":18,"codeName":"AuthenticationFailed","level":"error"}
+{"name":"MongoError","message":"Authentication failed.","ok":0,"errmsg":"Authentication failed.","code":18,"codeName":"AuthenticationFailed","level":"error"}
+{"level":"error","message":"Cannot read property 'password' of undefined"}
+{"level":"error","message":"Cannot read property 'password' of undefined"}
+{"level":"error","message":"Cannot read property 'password' of undefined"}

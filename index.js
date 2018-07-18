@@ -1,9 +1,9 @@
 const express = require('express');
 
 const app = express();
+require('./startup/dbconnection')();
 require('./startup/logger')();
 require('./startup/routes')(app);
-require('./startup/dbconnection')();
 require('./startup/config')();
 require('./startup/validation')();
 require('./startup/prod')(app);
