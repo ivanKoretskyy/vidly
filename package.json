@@ -36,7 +36,8 @@
     "nodemon": "^1.17.5",
     "save": "^2.3.2",
     "winston": "^3.0.0",
-    "winston-mongodb": "^4.0.0-rc1"
+    "winston-mongodb": "^4.0.0-rc1",
+    "cors": "^2.8.4"
   },
   "devDependencies": {}
 }
