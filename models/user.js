@@ -21,12 +21,10 @@ const userSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
-    required: true,
     maxlength: 255
   },
   lastName: {
     type: String,
-    required: true,
     maxlength: 255
   },
   isAdmin: Boolean

@@ -5,3 +5,7 @@
 {"level":"error","message":"Cannot read property 'password' of undefined"}
 {"level":"error","message":"Cannot read property 'password' of undefined"}
 {"level":"error","message":"Cannot read property 'password' of undefined"}
+{"errors":{"lastName":{"message":"Path `lastName` is required.","name":"ValidatorError","properties":{"message":"Path `{PATH}` is required.","type":"required","path":"lastName"},"kind":"required","path":"lastName","$isValidatorError":true},"firstName":{"message":"Path `firstName` is required.","name":"ValidatorError","properties":{"message":"Path `{PATH}` is required.","type":"required","path":"firstName"},"kind":"required","path":"firstName","$isValidatorError":true}},"_message":"User validation failed","message":"User validation failed: lastName: Path `lastName` is required., firstName: Path `firstName` is required.","name":"ValidationError","level":"error"}
+{"level":"error","message":"secretOrPrivateKey must have a value"}
+{"name":"MongoError","message":"E11000 duplicate key error index: vidly.users.$email_1 dup key: { : \"ivan5@ivan5.com\" }","driver":true,"index":0,"code":11000,"errmsg":"E11000 duplicate key error index: vidly.users.$email_1 dup key: { : \"ivan5@ivan5.com\" }","level":"error"}
+{"name":"MongoError","message":"E11000 duplicate key error index: vidly.users.$email_1 dup key: { : \"ivan5@ivan6.com\" }","driver":true,"index":0,"code":11000,"errmsg":"E11000 duplicate key error index: vidly.users.$email_1 dup key: { : \"ivan5@ivan6.com\" }","level":"error"}
